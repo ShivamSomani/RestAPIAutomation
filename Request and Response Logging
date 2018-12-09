@@ -11,10 +11,10 @@ package twitterapiexample;
 
 
 	public class TwitterGETRequest {
-		String consumerKey = "4nOQz59nhpBibinVlQaelRX1V";
-		String consumerSecret = "GRm0w8bbBF96Lq62IYCJGQhgM3rPyKVywlikQGjapyuJCz4rWS";
-		String accessToken = "342526678-x6hBNQaTJUishyHRhOukaFG7dHDm8jEzG19UtuFI";
-		String accessSecret = "s9YruUFkLmjLW7NEZJVXuVs5L0CX9URq88VOY9q5A6b2x";
+		String consumerKey = "";
+		String consumerSecret = "";
+		String accessToken = "-";
+		String accessSecret = "";
 		String tweetId = "";
 
 		@BeforeClass
