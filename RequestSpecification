@@ -1,0 +1,46 @@
+package specs;
+
+import static io.restassured.RestAssured.given;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import io.restassured.RestAssured;
+import io.restassured.authentication.AuthenticationScheme;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.specification.RequestSpecification; // for request specification
+
+public class RequestSpecificationDemo {
+	String consumerKey = "";
+	String consumerSecret = "";
+	String accessToken = "-";
+	String accessSecret = "";
+	
+	RequestSpecBuilder requestBuilder;
+	static RequestSpecification requestSpec;
+
+	@BeforeClass
+	public void setup() {
+//		RestAssured.baseURI = "https://api.twitter.com";
+//		RestAssured.basePath = "/1.1/statuses";
+		AuthenticationScheme authScheme = 
+				RestAssured.oauth(consumerKey, consumerSecret, accessToken, accessSecret);
+		requestBuilder = new RequestSpecBuilder();   // create a new object
+		requestBuilder.setBaseUri("https://api.twitter.com");
+		requestBuilder.setBasePath("/1.1/statuses");
+		requestBuilder.addQueryParam("user_id", "apiautomation");
+		requestBuilder.setAuth(authScheme);
+		requestSpec = requestBuilder.build();  // we added everything above and now we want to build it together so they commbine together and build as a request spec
+	}
+
+	@Test
+	public void readTweets() {
+		given()
+			.spec(requestSpec)
+//			.auth()
+//			.oauth(consumerKey, consumerSecret, accessToken, accessSecret)
+//			.queryParam("user_id", "apiautomation")
+		.when()
+			.get("/user_timeline.json")
+		.then()
+			.statusCode(200);
+	}
+}
