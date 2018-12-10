@@ -1,0 +1,36 @@
+//package default;
+
+import static io.restassured.RestAssured.given;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+
+public class GETRequestTest {
+	/***
+	 * 	Given I have this information
+		When I perform this action
+		Then this should be the output
+	 */
+	@BeforeClass
+	public void setup() {
+		RestAssured.baseURI = "https://maps.googleapis.com";
+		RestAssured.basePath = "/maps/api";
+	}
+	
+	@Test
+	public void statusCodeVerification() {
+		Response response = 
+		given()
+			.param("origins", "Boston,MA")
+			.param("destinations", "Lexington,MA")
+			.param("key", "-")
+		.when()
+			.get("/distancematrix/json");
+//		.then()
+//			.statusCode(200)
+		
+		System.out.println(response.body().prettyPrint());
+
+	}
+}
